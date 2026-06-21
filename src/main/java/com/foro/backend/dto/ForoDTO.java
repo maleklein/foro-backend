@@ -16,12 +16,12 @@ public class ForoDTO {
 
     private Long id;
 
-    private String name;
+    private String nombre;
 
-    private String description;
+    private String descripcion;
 
     // Facultad a la que pertenece el foro (ej: "fci", "fce", "General")
-    private String faculty;
+    private String facultad;
 
     private LocalDateTime createdAt;
 

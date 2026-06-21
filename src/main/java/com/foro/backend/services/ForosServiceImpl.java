@@ -40,9 +40,9 @@ public class ForosServiceImpl implements ForosService {
     @Override
     public ForoDTO crear(CrearForoDTO dto) {
         Foro foro = new Foro();
-        foro.setName(dto.getName());
-        foro.setDescription(dto.getDescription());
-        foro.setFaculty(dto.getFaculty());
+        foro.setNombre(dto.getNombre());
+        foro.setDescripcion(dto.getDescripcion());
+        foro.setFacultad(dto.getFacultad());
         // save() persiste el foro y devuelve la entidad con el id y timestamps asignados
         Foro guardado = foroRepository.save(foro);
         return mapToDTO(guardado);
@@ -53,9 +53,9 @@ public class ForosServiceImpl implements ForosService {
     private ForoDTO mapToDTO(Foro foro) {
         return new ForoDTO(
                 foro.getId(),
-                foro.getName(),
-                foro.getDescription(),
-                foro.getFaculty(),
+                foro.getNombre(),
+                foro.getDescripcion(),
+                foro.getFacultad(),
                 foro.getCreatedAt(),
                 foro.getUpdatedAt()
         );

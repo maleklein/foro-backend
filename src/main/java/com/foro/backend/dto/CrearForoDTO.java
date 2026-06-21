@@ -13,11 +13,11 @@ public class CrearForoDTO {
     // @NotBlank: falla si el campo es null, vacío o solo espacios en blanco.
     // Spring devuelve 400 automáticamente si la validación falla (con @Valid en el Controller).
     @NotBlank
-    private String name;
+    private String nombre;
 
     // La descripción es opcional — no lleva @NotBlank
-    private String description;
+    private String descripcion;
 
     @NotBlank
-    private String faculty;
+    private String facultad;
 }
