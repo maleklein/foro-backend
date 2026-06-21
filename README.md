@@ -87,6 +87,31 @@ El servidor levanta en `http://localhost:8080`.
 
 > En Windows, usar `mvnw.cmd` en vez de `./mvnw`.
 
+## Seed de datos iniciales
+
+El proyecto incluye un `DataSeeder` (`config/DataSeeder.java`) que inserta
+automáticamente datos de prueba la primera vez que arranca el Backend:
+
+- **5 usuarios** (1 `AdminUser` + 4 `StudentUser`) con la misma contraseña
+  `password123` encriptada con BCrypt.
+- **6 foros** alineados con las facultades del Frontend (`humanidades`,
+  `economicas`, `teologia`, `salud`, `instituto`, `general`).
+
+El seed es **idempotente**: si las tablas `users` o `foros` ya tienen datos,
+no inserta nada (evita duplicar foros y usuarios entre arranques).
+
+| Email                  | Tipo (`user_type`) | Rol      |
+|------------------------|--------------------|----------|
+| admin@uap.edu.ar       | ADMIN              | ADMIN    |
+| gianna@uap.edu.ar      | STUDENT            | STUDENT  |
+| malena@uap.edu.ar      | STUDENT            | STUDENT  |
+| milena@uap.edu.ar      | STUDENT            | STUDENT  |
+| jperez@uap.edu.ar      | STUDENT            | STUDENT  |
+
+Para resetear el seed (volver a tener exactamente estos datos), basta con
+borrar las filas de las tablas `users` y `foros` y volver a levantar el
+proyecto.
+
 ## Endpoints disponibles
 
 | Método | Ruta          | Descripción                       | Auth requerida |
@@ -115,7 +140,8 @@ foro-backend/
 │   │   │   ├── BackendApplication.java      # Entry point (main)
 │   │   │   ├── config/
 │   │   │   │   ├── CorsConfig.java          # CORS para que el BFF nos llame
-│   │   │   │   └── SecurityConfig.java      # Spring Security + BCrypt
+│   │   │   │   ├── SecurityConfig.java      # Spring Security + BCrypt
+│   │   │   │   └── DataSeeder.java          # Inserta 5 users + 6 foros al arrancar
 │   │   │   ├── controllers/
 │   │   │   │   └── HealthController.java    # GET /api/health
 │   │   │   └── models/                      # Entidades JPA (ver abajo)

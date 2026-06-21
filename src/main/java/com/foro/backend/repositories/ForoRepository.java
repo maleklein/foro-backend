@@ -18,7 +18,10 @@ public interface ForoRepository extends JpaRepository<Foro, Long> {
     //   count()         → cantidad total de foros
     //   existsById(id)  → true si existe un foro con ese id
 
-    // Query derivada del nombre: "SELECT * FROM foros WHERE faculty = ?"
-    // Útil para mostrar foros filtrados por facultad (ej: todos los foros de "fci").
-    List<Foro> findByFaculty(String faculty);
+    // Query derivada del nombre: "SELECT * FROM foros WHERE facultad = ?"
+    // Útil para mostrar foros filtrados por facultad (ej: todos los foros de
+    // "humanidades"). El nombre del método tiene que coincidir con el nombre
+    // de la property de la entidad (`facultad`) — si no, Spring Data falla
+    // al arrancar con "No property 'X' found for type 'Foro'".
+    List<Foro> findByFacultad(String facultad);
 }
