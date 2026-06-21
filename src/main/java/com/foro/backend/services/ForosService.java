@@ -1,5 +1,6 @@
 package com.foro.backend.services;
 
+import com.foro.backend.dto.CrearForoDTO;
 import com.foro.backend.dto.ForoDTO;
 
 import java.util.List;
@@ -11,4 +12,7 @@ public interface ForosService {
 
     // Devuelve todos los foros mapeados a DTO listos para serializar a JSON
     List<ForoDTO> listarTodos();
+
+    // Crea un nuevo foro en la BD y devuelve el DTO con el id generado
+    ForoDTO crear(CrearForoDTO dto);
 }

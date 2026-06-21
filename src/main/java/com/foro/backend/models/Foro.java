@@ -27,16 +27,16 @@ public class Foro extends BaseEntity {
 
     // nullable = false: todo foro debe tener nombre obligatoriamente
     @Column(nullable = false)
-    private String nombre;
+    private String name;
 
     // columnDefinition = "TEXT": permite descripciones largas
     // A diferencia de VARCHAR (255 chars máximo), TEXT puede guardar hasta 65,535 caracteres
     // nullable = true implícito: la descripción es opcional
     @Column(columnDefinition = "TEXT")
-    private String descripcion;
+    private String description;
 
     // nullable = false: todo foro debe pertenecer a una facultad
     // Ejemplos de valores: "fci", "fce", "fcs", "General"
     @Column(nullable = false)
-    private String facultad;
+    private String faculty;
 }

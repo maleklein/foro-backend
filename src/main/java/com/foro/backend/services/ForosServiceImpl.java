@@ -1,5 +1,6 @@
 package com.foro.backend.services;
 
+import com.foro.backend.dto.CrearForoDTO;
 import com.foro.backend.dto.ForoDTO;
 import com.foro.backend.models.Foro;
 import com.foro.backend.repositories.ForoRepository;
@@ -36,14 +37,25 @@ public class ForosServiceImpl implements ForosService {
                 .toList();
     }
 
+    @Override
+    public ForoDTO crear(CrearForoDTO dto) {
+        Foro foro = new Foro();
+        foro.setName(dto.getName());
+        foro.setDescription(dto.getDescription());
+        foro.setFaculty(dto.getFaculty());
+        // save() persiste el foro y devuelve la entidad con el id y timestamps asignados
+        Foro guardado = foroRepository.save(foro);
+        return mapToDTO(guardado);
+    }
+
     // Método privado de mapeo: traduce una entidad Foro a ForoDTO.
     // Centralizar el mapeo acá facilita cambiar los campos expuestos sin tocar el Controller.
     private ForoDTO mapToDTO(Foro foro) {
         return new ForoDTO(
                 foro.getId(),
-                foro.getNombre(),
-                foro.getDescripcion(),
-                foro.getFacultad(),
+                foro.getName(),
+                foro.getDescription(),
+                foro.getFaculty(),
                 foro.getCreatedAt(),
                 foro.getUpdatedAt()
         );
