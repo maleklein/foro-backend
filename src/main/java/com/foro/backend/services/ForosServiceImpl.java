@@ -1,5 +1,6 @@
 package com.foro.backend.services;
 
+import com.foro.backend.dto.CrearForoDTO;
 import com.foro.backend.dto.ForoDTO;
 import com.foro.backend.models.Foro;
 import com.foro.backend.repositories.ForoRepository;
@@ -34,6 +35,17 @@ public class ForosServiceImpl implements ForosService {
         return foros.stream()
                 .map(this::mapToDTO)
                 .toList();
+    }
+
+    @Override
+    public ForoDTO crear(CrearForoDTO dto) {
+        Foro foro = new Foro();
+        foro.setNombre(dto.getNombre());
+        foro.setDescripcion(dto.getDescripcion());
+        foro.setFacultad(dto.getFacultad());
+        // save() persiste el foro y devuelve la entidad con el id y timestamps asignados
+        Foro guardado = foroRepository.save(foro);
+        return mapToDTO(guardado);
     }
 
     // Método privado de mapeo: traduce una entidad Foro a ForoDTO.
