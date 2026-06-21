@@ -1,11 +1,12 @@
 package com.foro.backend.controllers;
 
+import com.foro.backend.dto.CrearForoDTO;
 import com.foro.backend.dto.ForoDTO;
 import com.foro.backend.services.ForosService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +33,14 @@ public class ForosController {
         // El Controller delega en el Service — no contiene lógica de negocio propia
         List<ForoDTO> foros = forosService.listarTodos();
         return ResponseEntity.ok(foros);
+    }
+
+    // POST /api/foros → crea un foro y devuelve 201 con el recurso creado
+    // @Valid activa Bean Validation sobre el DTO: devuelve 400 si @NotBlank falla
+    // @RequestBody deserializa el JSON del body al DTO automáticamente
+    @PostMapping("/foros")
+    public ResponseEntity<ForoDTO> crearForo(@Valid @RequestBody CrearForoDTO dto) {
+        ForoDTO creado = forosService.crear(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 }
