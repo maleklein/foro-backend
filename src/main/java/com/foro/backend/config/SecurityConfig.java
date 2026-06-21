@@ -33,6 +33,9 @@ public class SecurityConfig {
                 // Sirve para verificar que el servidor está corriendo
                 .requestMatchers("/api/health").permitAll()
 
+                // El login debe ser público — es el punto de entrada de autenticación
+                .requestMatchers("/api/auth/login").permitAll()
+
                 // Cualquier otro endpoint requiere autenticación
                 .anyRequest().authenticated()
             );
