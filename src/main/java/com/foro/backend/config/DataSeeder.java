@@ -60,13 +60,19 @@ public class DataSeeder implements CommandLineRunner {
         final String passwordHash = passwordEncoder.encode("password123");
 
         // 1 admin
+        // El campo `role` usa la convención funcional del equipo: "admin" y
+        // "user" (en minúscula). NO se confunde con el discriminator
+        // `user_type` de JPA — eso sigue siendo "ADMIN" / "STUDENT" porque es
+        // un detalle interno de la jerarquía OO (AdminUser / StudentUser).
         AdminUser admin = new AdminUser();
         admin.setEmail("admin@uap.edu.ar");
         admin.setUsername("admin");
-        admin.setRole("ADMIN"); // matchea el discriminator user_type
+        admin.setRole("admin");
         admin.setPasswordHash(passwordHash);
 
-        // 4 students con distintos emails/usernames pero el mismo rol "STUDENT"
+        // 4 students con role "user". Internamente JPA los persiste con
+        // user_type = "STUDENT" (eso lo hace el discriminator automáticamente),
+        // pero el rol funcional expuesto al frontend / BFF es "user".
         StudentUser gianna = buildStudent("gianna@uap.edu.ar", "gianna", passwordHash);
         StudentUser malena = buildStudent("malena@uap.edu.ar", "malena", passwordHash);
         StudentUser milena = buildStudent("milena@uap.edu.ar", "milena", passwordHash);
@@ -81,7 +87,7 @@ public class DataSeeder implements CommandLineRunner {
         StudentUser u = new StudentUser();
         u.setEmail(email);
         u.setUsername(username);
-        u.setRole("STUDENT");
+        u.setRole("user");
         u.setPasswordHash(passwordHash);
         return u;
     }
