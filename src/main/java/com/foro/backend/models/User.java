@@ -44,8 +44,11 @@ public abstract class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String username;
 
-    // Rol general: "ADMIN" o "STUDENT"
-    // Se usa para verificaciones rápidas sin necesidad de instanceof
+    // Rol funcional del usuario expuesto a otras capas (frontend / BFF).
+    // Valores válidos: "admin" o "user" (en minúscula, igual que en el BFF).
+    // NO confundir con el discriminator `user_type` de JPA, que sigue siendo
+    // "ADMIN" / "STUDENT" porque es un detalle interno de la jerarquía OO.
+    // Se usa para verificaciones rápidas sin necesidad de instanceof.
     @Column(nullable = false)
     private String role;
 
